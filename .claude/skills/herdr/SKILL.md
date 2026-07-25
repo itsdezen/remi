@@ -16,6 +16,7 @@ Terminal workspace multiplexer for running and orchestrating multiple AI coding 
 - Hierarchy: **workspace** → **tab** → **pane** → **agent**. A pane is a terminal; an agent is a supported CLI detected running inside a pane.
 - Status rolls up: every pane/agent has `agent_status` (`idle | working | blocked | done | unknown`); tabs and workspaces report the same field as a rollup of everything inside them. Checking a workspace tells you if *anything* inside needs attention without opening a single pane.
 - Targets: `agent`/`pane` commands take a `<target>` — a pane_id or agent name from `list`/`get`. Never hardcode one; look it up first, IDs are per-session.
+- **Exclude the current session from status reports.** This very session (Remi) shows up in `herdr agent list`/`workspace list` as its own entry (matching `agent_session.value` to this session's id, kind `claude`, cwd of this repo). Filter it out before reporting to the user — don't describe or analyze it as if it were a separate managed agent. If it's the only entry, report "no other agents running."
 
 ## Orchestration workflow — survey → narrow → inspect → act
 Go narrower only as needed, and stop as soon as you have the answer:
