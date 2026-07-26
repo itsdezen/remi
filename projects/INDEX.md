@@ -7,6 +7,6 @@ Open the linked file only when you're about to work on, or are asked about, that
 - [itsdezen](itsdezen.md) — active — GitHub profile README
 - [tili](tili.md) — active — macOS tiling window manager
 - [retinafy](retinafy.md) — active — macOS HiDPI display scaling utility
-- [dotfiles](dotfiles.md) — active — shell/editor/system config
+- [dotfiles](dotfiles.md) — active — shell/editor/system config, unified Nord theme
 
 <!-- - [Project Name](slug.md) — status — one-line hook -->
