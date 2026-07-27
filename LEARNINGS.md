@@ -29,6 +29,10 @@ Scope sub-agent briefs tightly (no git commits, no deploys, confined to a subdir
 
 Spawn new sub-agents as a **split pane** (`herdr pane split --pane <current-pane-id> --direction right|down --cwd <project-path>`) within the workspace Remi is already running in — not a new `herdr workspace create`. User wants sub-agents visible alongside the main Remi session, not scattered across separate workspaces (2026-07-27).
 
+## herdr sub-agent teardown
+
+**Auto-close the sub-agent's pane once its task is confirmed done** — don't wait for the user to ask. Do this right after reading the agent's final summary and confirming the work (e.g. via `git status`/diff), using `herdr pane close <pane_id>`. Only skip this if the user says they want the pane kept open for further work. (2026-07-27 — user was explicit: "đừng để tôi nhắc", don't make him ask.)
+
 ## Delegation default + reporting style
 
 **Delegate project work to a dedicated agent session.** Whenever the user hands me a task scoped to a specific project, create at least one dedicated herdr agent session for it and delegate — don't implement directly in the Remi session. Handle directly only: small/quick actions (a read, a lookup, a status check) or general/system-level tasks not scoped to one project.
