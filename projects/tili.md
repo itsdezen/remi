@@ -13,6 +13,8 @@ i3-style tiling window manager for macOS. Rust, public Accessibility API only (n
 ## Current focus
 Website **shipped and pushed to `main`** (2026-07-27) — `website/` Astro + Starlight site, built via herdr agent `tili-web`. Landing `/` (no-scroll, 100dvh + clamp(), monochrome theme matching dezen.me, dark/light toggle, Lucide-icon CTA row) + docs `/docs` (Configuration/Commands/Menu Bar rewritten from actual source code not README, Changelog page sourced from CHANGELOG.md, logo-only nav). Favicon/logo went through several iterations — final state: theme-adaptive favicon.svg (media-query fill swap, matches dezen.me exactly), transparent favicon.ico/96x96 PNG with no padding (glyph fills canvas edge-to-edge), apple-touch-icon/manifest PNGs intentionally left opaque per Apple/PWA convention. Deploy target: Cloudflare Workers (static assets, `wrangler.jsonc`) — **CI still needs the user to connect the repo in the Cloudflare dashboard** (root directory must be set to `website/` since this is a monorepo) and add `tili.dezen.me` as a custom domain; not something I can do without dashboard access.
 
+2026-07-27: added thumbnail image — README header thumbnail (`assets/thumbnail.png`) and website og:image/twitter:image (`website/public/og-image.png`, was previously the 512x512 app logo). Also generated a GitHub social-preview-ready copy (1280x672, ~790KB, under GitHub's 1MB/1280x640 guidance) at `~/Desktop/tili-social-preview.png` for manual upload in repo Settings.
+
 Previously: shipped v0.6.1 (synced Formula/tili.rb sha256/version) and fixed a notch-inset bug (double-counting the existing menu-bar baseline). Daily-drivable already — tiling, workspaces, hot-reload config, hotkeys, floating rules, multi-monitor, menu bar badge.
 
 ## Key decisions / context
