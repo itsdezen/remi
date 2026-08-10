@@ -1,11 +1,25 @@
 ---
 slug: fx-dezen-me
-status: active
+status: decommissioned
 path: /Users/itsdezen/Developer/fx.dezen.me
-updated: 2026-08-04
+updated: 2026-08-10
 ---
 
 # fx.dezen.me
+
+## DECOMMISSIONED (2026-08-10)
+User decided to kill the project. Infra torn down via a dedicated herdr sub-agent (`fx-teardown`), no backup taken (user explicitly declined). Deleted: D1 database `fx-dezen-me-db`, KV namespaces `MARKET_CACHE`/`CALENDAR_CACHE`, the `fx-dezen-me` Worker (custom domain confirmed gone — `fx.dezen.me` no longer resolves in DNS), and the Cloudinary journal-screenshot assets/folders (cloud `tiovjpjy`). Every deleted resource's name/ID was cross-checked against `wrangler.jsonc` first since the same Cloudflare account also hosts dezen.me and devnews-bot — those were left untouched (verified: `devnews` D1, `astro-starter-session`/`GITHUB_CACHE` KV, Cloudinary samples folder all still present).
+
+**Kept, per user's choice**: GitHub repo `github.com/itsdezen/fx.dezen.me` (private) and the local working copy at `/Users/itsdezen/Developer/fx.dezen.me` — code preserved in case of a future revival.
+
+**Left untouched, optional manual follow-up**:
+- Workers Builds Git integration dashboard listing for itsdezen/fx.dezen.me — Worker script is confirmed gone (API error 10007), integration is very likely auto-removed, but wasn't independently verified via dashboard.
+- Cloudinary account itself — not deletable via API, would need manual dashboard login if the user wants the account gone too (not just its assets).
+- Twelve Data and Resend API keys in `.dev.vars` — left alone, out of scope (Resend's `dezen.me` domain verification is shared with other projects, so no domain-level Resend changes were made).
+
+Everything below this point is historical context from when the project was active.
+
+# fx.dezen.me (historical — active-era notes)
 
 ## What it is
 PWA for Forex/Gold/Silver/Crypto price-action traders — market context, risk management, trade journaling, and analytics. No signals, no indicators, no market prediction, ever. Tech stack mirrors dezen.me: TanStack Start, React 19, TypeScript strict, TanStack Router/Query, Vite, Tailwind v4, shadcn/ui, Base UI, bun, zod, Vitest — deployed to Cloudflare Workers with D1 (DB) + KV (cache). No R2 — journal screenshots go through Cloudinary instead (see below).
