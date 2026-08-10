@@ -1,11 +1,22 @@
 ---
 slug: devnews-bot
-status: active
+status: decommissioned
 path: /Users/itsdezen/Developer/devnews-bot
-updated: 2026-07-29
+updated: 2026-08-10
 ---
 
 # devnews-bot
+
+## DECOMMISSIONED (2026-08-10)
+User decided to kill this project too, same session as fx.dezen.me's teardown ("tiện thể dọn luôn dự án devnewsbot"). Confirmed via explicit question: full destroy, same treatment as fx.dezen.me. Infra torn down via a dedicated herdr sub-agent (`devnews-teardown`), no backup taken.
+
+**Done**: D1 database `devnews` (id `5bdfc845-6d83-4206-937c-28c4bd7f3693`) deleted, cross-checked against `wrangler.toml` first. Worker `devnews-bot` deleted — verified via `wrangler deployments list` erroring "does not exist" and `wrangler d1 list` coming back empty.
+
+**Not automatable, handed to the user**:
+- GitHub repo `github.com/itsdezen/devnews-bot` (private) and local clone at `/Users/itsdezen/Developer/devnews-bot` — `gh repo delete` failed (token missing `delete_repo` scope, same blocker hit on fx.dezen.me), and the user said they'd finish GitHub + bot cleanup themselves. **Don't assume the repo/local dir are gone without checking.**
+- Telegram bot itself — the real `TELEGRAM_BOT_TOKEN` was only ever stored as a Cloudflare Worker secret (write-only, unreadable even before the Worker was deleted); the repo's `.dev.vars` only had a placeholder. Couldn't call `deleteWebhook`. User needs to go through @BotFather (`/revoke` or delete the bot) to fully deactivate it — left to the user to do themselves.
+
+Everything below is historical context from when the project was active/live.
 
 ## What it is
 Developer news aggregator Telegram bot, running entirely on Cloudflare Workers. No AI — deterministic fetch/filter/deliver pipeline (GitHub Trending/Releases, RSS, Hacker News → normalise → dedupe → filter by user prefs → notify/digest). No web dashboard; all config happens via Telegram commands + inline keyboards. Full spec at `SPEC.md` in the project root.

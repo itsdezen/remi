@@ -8,7 +8,7 @@ Open the linked file only when you're about to work on, or are asked about, that
 - [tili](tili.md) — active — macOS tiling window manager
 - [retinafy](retinafy.md) — active — macOS HiDPI display scaling utility
 - [dotfiles](dotfiles.md) — active — shell/editor/system config, unified Nord theme
-- [devnews-bot](devnews-bot.md) — active — Telegram dev-news bot on Cloudflare Workers; live in production
-- [fx.dezen.me](fx-dezen-me.md) — decommissioned — Forex price-action PWA; infra torn down 2026-08-10, code kept on GitHub for possible revival
+- [devnews-bot](devnews-bot.md) — decommissioned — Telegram dev-news bot; Cloudflare infra torn down 2026-08-10, repo/bot cleanup left to user
+- [fx.dezen.me](fx-dezen-me.md) — decommissioned — Forex price-action PWA; infra torn down 2026-08-10, repo deletion (local+remote) left to user
 
 <!-- - [Project Name](slug.md) — status — one-line hook -->
