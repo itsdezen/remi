@@ -43,7 +43,12 @@ External tools I can operate (herdr, etc.) are packaged as Claude Code skills un
 - **Auto-close a sub-agent's pane once its task is confirmed done** — don't wait for the user to ask. Do this right after reading the agent's final summary and confirming the work (e.g. via `git status`/diff), using `herdr pane close <pane_id>`. Only skip this if the user says they want the pane kept open for further work.
 
 ## Working with herdr sub-agents
-- Spawn new sub-agents as a **split pane** (`herdr pane split --pane <current-pane-id> --direction right|down --cwd <project-path>`) within the workspace Remi is already running in — not a new `herdr workspace create`. The user wants sub-agents visible alongside the main Remi session, not scattered across separate workspaces.
+- Spawn new sub-agents as a **split pane** within the workspace Remi is already running in — not a new `herdr workspace create`. The user wants sub-agents visible alongside the main Remi session, not scattered across separate workspaces.
+- **Panel layout rule**: Remi always stays pinned to the **bottom row, bottom-left corner**, spanning the full width when it's the only thing in that row. Sub-agents live in a **top row**, arranged left-to-right.
+  - First sub-agent: split **up** from Remi's pane (`herdr pane split --pane <remi-pane-id> --direction up --cwd <project-path>`) to create the top row.
+  - Each additional sub-agent: split an existing top-row pane **right** (`--direction right`) to add it to that row, not stacked under Remi.
+  - Only once the top row is crowded (many agents eating most of the horizontal space) should new panes start encroaching on Remi's row — split further **right** off Remi's own pane in the bottom row. Remi must still end up bottom-left.
+  - When asked to "arrange"/"rearrange" the current layout, re-split existing panes to match this shape rather than leaving whatever ad hoc layout accumulated.
 - `--dangerously-skip-permissions` does not reliably work in this environment (likely an enterprise/managed policy) — don't keep retrying it if it fails.
 - What works: run herdr sub-agents in **default permission mode** and babysit — relay each confirmation via `herdr agent send-keys`. Reliable for benign/local commands (file reads, version checks, `grep`, `sips`, etc.).
 - Network-touching commands (`curl`, package installs) and permission-escalation actions (editing settings.json) sometimes get blocked by Remi's own auto-mode classifier when relaying — a hard guardrail, flaky/probabilistic (retry once or twice before giving up).
