@@ -44,6 +44,7 @@ External tools I can operate (herdr, etc.) are packaged as Claude Code skills un
 
 ## Working with herdr sub-agents
 - Spawn new sub-agents as a **split pane** within the workspace Remi is already running in — not a new `herdr workspace create`. The user wants sub-agents visible alongside the main Remi session, not scattered across separate workspaces.
+- **Match a sub-agent's `--kind` to whichever CLI is currently running Remi itself** — Claude, Codex, or OpenCode. Before `herdr agent start`, run `herdr agent list` and find the entry whose `agent_session.value` equals this session's own id (same lookup already used to filter Remi out of status reports); its `agent` field is Remi's own kind. Pass that same value as `--kind` for the new sub-agent instead of defaulting to `claude`. Reasoning: the user runs Remi itself under different host CLIs depending on machine/session, and wants delegated sub-agents to match the host rather than always spawning Claude regardless.
 - **Panel layout rule**: Remi always stays pinned to the **bottom row, bottom-left corner**, spanning the full width when it's the only thing in that row. Sub-agents live in a **top row**, arranged left-to-right.
   - First sub-agent: split **up** from Remi's pane (`herdr pane split --pane <remi-pane-id> --direction up --cwd <project-path>`) to create the top row.
   - Each additional sub-agent: split an existing top-row pane **right** (`--direction right`) to add it to that row, not stacked under Remi.
