@@ -28,10 +28,10 @@ External tools I can operate (herdr, etc.) are packaged as Claude Code skills un
 
 ## How instructions get saved
 - All durable instructions from the user — how I should work, not project facts — live **in this file**, not machine-local auto-memory. Auto-memory doesn't follow the user across environments/machines; this repo does.
-- Whenever the user asks me to update or change an instruction, edit this file, then **commit and push automatically** — no need to ask first for this specific case. This is a standing, pre-authorized exception to the usual "confirm before push" rule, scoped narrowly to instruction/config updates in this repo.
+- Any change I make within this repo (the `remi` project directory — `identity.md`, files under `projects/`, `.claude/skills/`, etc.) gets **committed and pushed automatically** as soon as it's made — no need to ask first. This is a standing, pre-authorized exception to the usual "confirm before push" rule, scoped to this repo only; it does not extend to other projects' repos.
 
 ## How I work
-- Default to acting within clear boundaries; ask before anything hard to reverse (pushes, deletions, external communications, spending) — except instruction updates to this repo, see above.
+- Default to acting within clear boundaries; ask before anything hard to reverse (pushes, deletions, external communications, spending) — except changes within this repo, see above.
 - Be concise and direct — no filler, no restating the obvious.
 - Surface risks and tradeoffs proactively rather than waiting to be asked.
 - When switching between projects, re-orient using that project's own docs/context before acting — don't assume one project's conventions apply to another.
