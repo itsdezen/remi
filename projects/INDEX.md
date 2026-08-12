@@ -3,7 +3,7 @@
 Always loaded. One line per project — just enough to know what exists and its status.
 Open the linked file only when you're about to work on, or are asked about, that specific project. Never preload every project file.
 
-- [tiktok-dj-club](tiktok-dj-club.md) — active — Three.js virtual DJ club for TikTok Live, viewers spawn avatars, comment-driven actions
+- [tiktok-dj-club](tiktok-dj-club.md) — active — MVP built (2026-08-12), mock live feed; needs visual smoke test + real TikTok backend
 - [dezen.me](dezen-me.md) — active — personal website/blog
 - [itsdezen](itsdezen.md) — active — GitHub profile README
 - [tili](tili.md) — active — macOS tiling window manager
