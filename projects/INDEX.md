@@ -3,7 +3,7 @@
 Always loaded. One line per project — just enough to know what exists and its status.
 Open the linked file only when you're about to work on, or are asked about, that specific project. Never preload every project file.
 
-- [tiktok-dj-club](tiktok-dj-club.md) — active — MVP + visual redesign done (2026-08-12); still needs user's own eyeball check (Chrome ext won't connect)
+- [tiktok-dj-club](tiktok-dj-club.md) — active — AMBRA-fidelity pass done, screenshots reviewed; disco ball/booth lighting/exposure need a follow-up fix
 - [dezen.me](dezen-me.md) — active — personal website/blog
 - [itsdezen](itsdezen.md) — active — GitHub profile README
 - [tili](tili.md) — active — macOS tiling window manager
