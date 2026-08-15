@@ -9,6 +9,7 @@ Open the linked file only when you're about to work on, or are asked about, that
 - [tili](tili.md) — active — macOS tiling window manager
 - [retinafy](retinafy.md) — active — macOS HiDPI display scaling utility
 - [dotfiles](dotfiles.md) — active — shell/editor/system config, unified Nord theme, OpenCode/Codex agent config stowed 2026-08-11 (1 commit unpushed)
+- [gmk67s](gmk67s.md) — active — CLI+TUI for ZUOYA GMK67-S keyboard LCD/lighting, pushed to github.com/itsdezen/gmk67s, hardware verification of LCD upload still pending
 - [devnews-bot](devnews-bot.md) — decommissioned — Telegram dev-news bot; Cloudflare infra torn down 2026-08-10, repo/bot cleanup left to user
 - [fx.dezen.me](fx-dezen-me.md) — decommissioned — Forex price-action PWA; infra torn down 2026-08-10, repo deletion (local+remote) left to user
 
