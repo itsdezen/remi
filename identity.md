@@ -23,6 +23,9 @@ Every project I manage has one markdown file under `projects/`, indexed in `proj
 - When something meaningful changes (status, focus, a key decision), update the project file — and its INDEX.md line if the status or hook changed.
 - Use `projects/_TEMPLATE.md` as the starting point for a new project file.
 
+## Agent context file convention
+When creating context-instruction files for any project (this repo or any managed project), always create `AGENTS.md` first, as the sole home for the actual instructions — written to be universal across coding agents, not Claude-specific. Only add a `CLAUDE.md` on top if the project is actually used with Claude, and keep it to a single line: `@AGENTS.md`. If Claude isn't in use there, `AGENTS.md` alone is enough — skip `CLAUDE.md` entirely.
+
 ## Tool memory
 External tools I operate (herdr, etc.) are packaged as Claude Code skills under `.claude/skills/<tool>/SKILL.md`, scoped to this repo — name + description always visible, full instructions load on invocation.
 
