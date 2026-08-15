@@ -18,6 +18,15 @@ Terminal workspace multiplexer for running and orchestrating multiple AI coding 
 - Targets: `agent`/`pane` commands take a `<target>` — a pane_id or agent name from `list`/`get`. Never hardcode one; look it up first, IDs are per-session.
 - **Exclude the current session from status reports.** This very session (Remi) shows up in `herdr agent list`/`workspace list` as its own entry (matching `agent_session.value` to this session's id, kind `claude`, cwd of this repo). Filter it out before reporting to the user — don't describe or analyze it as if it were a separate managed agent. If it's the only entry, report "no other agents running."
 
+## Beyond panes — the rest of herdr's model
+Panel splitting covers routine staff spawning, but herdr models more than that. Reach for these only when the specific problem actually calls for them — the split+swap panel rule in identity.md stays the default for ordinary staff work.
+
+- **Session** (`--session <name>` at startup) is a separate server namespace — its own daemon, own state, invisible to other sessions. Stay in the single default session; only start a second one if the user explicitly wants fully isolated runtime state (a different machine/context), not just another project.
+- **Worktree** (`herdr worktree create --branch NAME [--base REF]`) gives a staff member its own git checkout + workspace. Reach for this when two or more staff need concurrent uncommitted changes in the *same* repo — plain `pane split` with a shared cwd is fine when only one staff touches that repo at a time, or staff are in different repos/subdirs.
+- **Status labels** (`herdr pane report-metadata <pane_id> --source remi --display-agent "<label>" --token task=<slug>`) let the herdr sidebar carry a stable description of what a staff member is for, independent of its own fluctuating per-turn terminal title. Worth setting right after briefing a staff member on anything spanning multiple checkpoints (the common case when babysitting) — skip it for quick one-off asks. Verified working: sets `display_agent` and `tokens` on the pane, visible via `pane get`.
+- **Direct attach** (`herdr agent attach <target> [--takeover]`) lets *the user* take the keyboard directly on a staff pane instead of going through Remi's relay. Mention this to the user if they want to jump in themselves rather than wait on Remi to relay each prompt.
+- Declarative layout export/apply (BSP trees) exists at the socket-API level but isn't exposed via the `herdr` CLI as of v0.8.0 — the pane split+swap approach already in identity.md's panel-layout rule is the right-sized tool for today's 2-row layout; there's no CLI shortcut to reach for yet.
+
 ## Orchestration workflow — survey → narrow → inspect → act
 Go narrower only as needed, and stop as soon as you have the answer:
 
@@ -59,6 +68,8 @@ Control an agent:
 - `herdr agent wait <target> [--until STATUS...] [--timeout MS]`
 - `herdr agent send-keys <target> <keys...>` — raw keypresses, for things `prompt` can't express (e.g. approving a y/n)
 - `herdr agent focus <target>` / `herdr agent rename <target> <name>`
+- `herdr agent attach <target> [--takeover]` — for telling the user how to take the keyboard directly, not something Remi calls on herself
+- `herdr pane report-metadata <pane_id> --source remi [--display-agent TEXT] [--token NAME=VALUE] [--clear-display-agent] [--clear-token NAME]` — optional stable status label for the sidebar
 
 Teardown:
 - `herdr pane close <pane_id>` · `herdr tab close <tab_id>` · `herdr workspace close <workspace_id>`
