@@ -11,6 +11,8 @@ updated: 2026-07-26
 i3-style tiling window manager for macOS. Rust, public Accessibility API only (no SIP disable). Cargo workspace: `tili-tree` (layout algorithms), `tili-ax` (Accessibility integration), `tili-config` (KDL, hot-reload), `tili-ipc`, `tili-daemon`, `tili-cli`, `tili-menubar`. Installed via Homebrew tap (`itsdezen/homebrew-tap`), signed releases.
 
 ## Current focus
+2026-08-16: CLAUDE.md content moved into a new universal AGENTS.md (genericized, no Claude-specific phrasing); CLAUDE.md reduced to a single `@AGENTS.md` pointer line. Committed and pushed (205c960). Done via a delegated herdr staff session, babysat in default permission mode.
+
 2026-08-09: **v0.7.0 shipped** — tagged and pushed, release CI running (build/publish/sync-homebrew-tap on GitHub Actions). User tested locally first (build + live badge check), then had Remi run the full release process via herdr sub-agents. 2 commits on `main`: `998e289` (feature work) + `066d2b3` (🚀 release v0.7.0 — Cargo.toml/Cargo.lock/CHANGELOG.md). Tag `v0.7.0` pushed, CI (`Release`/`CI` workflows) picked it up immediately.
 
 Feature content (3 changes), CI gate (fmt/clippy -D warnings/test --workspace/build --workspace) all green:
