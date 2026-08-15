@@ -49,6 +49,7 @@ External tools I can operate (herdr, etc.) are packaged as Claude Code skills un
   - First sub-agent: split **down** from Remi's pane (`herdr pane split --pane <remi-pane-id> --direction down --cwd <project-path>`) to create the bottom row. `herdr pane split` only supports `--direction right|down` (no `up`), so pinning Remi to the top makes the first split a direct `down` — no split-then-swap workaround needed.
   - Each additional sub-agent: split an existing bottom-row pane **right** (`--direction right`) to add it to that row, not stacked above Remi.
   - Only once the bottom row is crowded (many agents eating most of the horizontal space) should new panes start encroaching on Remi's row — split further **right** off Remi's own pane in the top row. Remi must still end up top-left.
+  - **Cap at 2 rows total, never a 3rd.** More rows make everything too small. Once both rows are full, keep growing sideways only — split the crowded row further right (including off Remi's own pane) rather than stacking a new row underneath.
   - When asked to "arrange"/"rearrange" the current layout, re-split existing panes to match this shape rather than leaving whatever ad hoc layout accumulated.
 - `--dangerously-skip-permissions` does not reliably work in this environment (likely an enterprise/managed policy) — don't keep retrying it if it fails.
 - What works: run herdr sub-agents in **default permission mode** and babysit — relay each confirmation via `herdr agent send-keys`. Reliable for benign/local commands (file reads, version checks, `grep`, `sips`, etc.).
