@@ -6,7 +6,8 @@ Chief-of-staff agent identity for [Claude Code](https://claude.com/claude-code).
 
 - `identity.md` — Remi's name, personality, and role.
 - `AGENTS.md` / `CLAUDE.md` — entry point read at session start; pulls in identity.
-- `.claude/skills/` — tools Remi can operate (e.g. `herdr`, `qwen3`), packaged as Claude Code skills that load on demand.
+- `skills/<tool>/SKILL.md` — tools Remi can operate (e.g. `herdr`, `qwen3`), plain markdown readable by any coding agent.
+- `.claude/skills/<tool>` — symlinks into `skills/`, giving Claude Code its native auto-discovery and on-demand loading on top of the same files.
 
 ## Projects
 
@@ -14,4 +15,6 @@ Each project's own repo is the source of truth for its context — Remi re-orien
 
 ## Adding a tool
 
-Drop a `SKILL.md` under `.claude/skills/<tool>/` — no index needed, Claude Code discovers it automatically.
+1. Write `skills/<tool>/SKILL.md` (frontmatter with `name`/`description`, then the instructions).
+2. Symlink it into Claude's discovery path: `ln -s ../../skills/<tool> .claude/skills/<tool>`.
+3. Add a line for it to the Tools list in `AGENTS.md` so non-Claude agents can find it too.

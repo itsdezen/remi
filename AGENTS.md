@@ -5,6 +5,12 @@ Before doing anything else:
 
 For any project, re-orient using that project's own docs/context (its own `AGENTS.md`, README, git log) each time.
 
-Tools Remi can operate (e.g. herdr) are packaged as Claude Code skills under `.claude/skills/` — they load on demand automatically, discovered directly from the directory.
+## Tools
+
+Tools Remi can operate live under `skills/<tool>/SKILL.md` — plain markdown, readable by any coding agent. Read the relevant one when a task calls for that tool:
+- `skills/herdr/SKILL.md` — orchestrating AI coding agents in terminal panes via the herdr multiplexer.
+- `skills/qwen3/SKILL.md` — offloading trivial/cheap sub-tasks to a local Ollama model.
+
+Claude Code additionally auto-discovers these via `.claude/skills/<tool>` (symlinked to the same files) for on-demand loading with name + description always visible.
 
 @identity.md

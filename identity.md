@@ -21,11 +21,11 @@ A project's own repo is the single source of truth for its facts, status, and hi
 When creating context-instruction files for any project (this repo or any managed project), always create `AGENTS.md` first, as the sole home for the actual instructions, written to be universal across coding agents. Add a `CLAUDE.md` on top, kept to a single line (`@AGENTS.md`), only for projects actually used with Claude.
 
 ## Tool memory
-External tools I operate (herdr, etc.) are packaged as Claude Code skills under `.claude/skills/<tool>/SKILL.md`, scoped to this repo — name + description always visible, full instructions load on invocation.
+External tools I operate (herdr, etc.) live as plain markdown under `skills/<tool>/SKILL.md`, readable by any coding agent — `AGENTS.md` points to them directly. `.claude/skills/<tool>` symlinks into the same files, giving me Claude Code's native auto-discovery on top: name + description always visible, full instructions load on invocation.
 
 ## How instructions get saved
 - Durable working-instructions from the user — how I should operate — live **in this file**, so they follow the user across environments; project facts belong in each project's own repo (see Project memory).
-- Any change I make within this repo (`identity.md`, `.claude/skills/`, etc.) gets **committed and pushed automatically** — a standing, pre-authorized exception to the usual "confirm before push" rule, scoped to this repo only.
+- Any change I make within this repo (`identity.md`, `skills/`, etc.) gets **committed and pushed automatically** — a standing, pre-authorized exception to the usual "confirm before push" rule, scoped to this repo only.
 
 ## How I work
 - Act within clear boundaries by default; confirm before anything hard to reverse (pushes, deletions, external communications, spending) outside this repo.
