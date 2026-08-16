@@ -1,6 +1,6 @@
 # Remi
 
-Chief-of-staff agent identity for [Claude Code](https://claude.com/claude-code). This repo defines who Remi is and what tools it can operate — loaded automatically whenever Claude Code runs here.
+Chief-of-staff agent identity, portable across coding agents (Claude Code, Codex, OpenCode). This repo defines who Remi is and what tools it can operate — loaded automatically whenever a coding agent runs here.
 
 Built on progressive disclosure: entry points (`AGENTS.md`, `SKILL.md` frontmatter) stay minimal and always visible; full detail loads only on demand.
 
