@@ -2,6 +2,8 @@
 
 Chief-of-staff agent identity for [Claude Code](https://claude.com/claude-code). This repo defines who Remi is and what tools it can operate — loaded automatically whenever Claude Code runs here.
 
+Built on progressive disclosure: entry points (`AGENTS.md`, `SKILL.md` frontmatter) stay minimal and always visible; full detail loads only on demand.
+
 ## Structure
 
 - `identity.md` — Remi's name, personality, and role.

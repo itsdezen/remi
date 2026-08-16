@@ -10,6 +10,6 @@ For any project, re-orient using that project's own docs/context (its own `AGENT
 Tools Remi can operate live under `skills/<tool>/SKILL.md` — plain markdown, readable by any coding agent. Read the relevant one when a task calls for that tool:
 - `skills/herdr/SKILL.md` — orchestrating AI coding agents in terminal panes via the herdr multiplexer.
 
-Claude Code additionally auto-discovers these via `.claude/skills/<tool>` (symlinked to the same files) for on-demand loading with name + description always visible.
+Claude Code additionally auto-discovers these via `.claude/skills/<tool>` (symlinked to the same files) for on-demand loading with name + description always visible — progressive disclosure, the same principle this whole file follows.
 
 @identity.md
