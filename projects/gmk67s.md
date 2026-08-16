@@ -24,6 +24,14 @@ Refactored to TypeScript + Bun (2026-08-15, staff-executed, committed & pushed `
 - Safety principle: never auto-run tests that write/read the real device (see memory `feedback_hardware_test_isolation`) — protocol/logic tests must use mocked HID.
 - Package versions kept current at build time rather than matching the older reference project's pins (`node-hid@^3.4.0`, `jimp@^1.6.1` — Jimp v1 API differs from the v0.x used upstream, `ink@^5.2.1`/`react@^18.3.1` — capped below ink@7 since that needs Node 22 and this project targets Node ≥18).
 
+## Open question: is the 36-frame cap real?
+User wants to push GIF upload past the assumed 36-frame limit. Investigated the vendor's official Windows app (`Image Custom Tool`, moved from `~/Downloads` to `~/Developer/Image Custom Tool` for inspection — a generic/white-label multi-device tool, not gmk67s-specific: its bundled `DefaultData/Keyboard.json` has VID `3141`/PID `4103`, which doesn't match gmk67s's real VID `0x320f`/PID `0x5055`).
+- No "36" or any frame-count constant appears anywhere in the tool's JSON/XML/string-table data — UI just shows a bare "Frame count:" label with no max attribute, and there's no "limit exceeded" message string in the language files either. If a cap exists, it's compiled into the `.exe`'s logic, not exposed in data files or plain-text strings (checked both ASCII and UTF-16LE).
+- SPEC.md's own frame-size math is internally inconsistent: it states "Padded frame size: 65536 bytes, after 32KB-boundary rounding" — but the hardware-verified 128×128 resolution note elsewhere says 128×128×2 = 32768 bytes exactly, needing **no** padding to a 32KB boundary. If the real per-frame footprint is 32KB (not 64KB), the same flash capacity would hold 2× the frames — worth reconciling before trusting the 36 figure.
+- The config protocol's `image1Frames`/`image2Frames` fields are `uint8` (max 255) — the wire protocol itself imposes no 36 ceiling. 36 was inherited unverified from the (now-deleted) reference projects; SPEC.md already flags it as "assumed... not verified on this device."
+- Reference projects (`gmk87-node`, `gmk67sts`) no longer exist locally to trace where "36" originally came from.
+- Next step to actually resolve this: empirical hardware test (upload increasing frame counts until the device rejects/corrupts) rather than further static analysis — deeper answers would need disassembling the compiled `.exe`. Per [[feedback_hardware_test_isolation]], don't run this against the real device without asking first.
+
 ## Links
 - Repo: https://github.com/itsdezen/gmk67s
 - Reference projects (read-only, not dependencies): `~/Developer/clones/gmk87-node`, `~/Developer/clones/gmk67sts`
