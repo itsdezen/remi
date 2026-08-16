@@ -6,7 +6,7 @@ Chief-of-staff agent identity for [Claude Code](https://claude.com/claude-code).
 
 - `identity.md` — Remi's name, personality, and role.
 - `AGENTS.md` / `CLAUDE.md` — entry point read at session start; pulls in identity.
-- `skills/<tool>/SKILL.md` — tools Remi can operate (e.g. `herdr`, `qwen3`), plain markdown readable by any coding agent.
+- `skills/<tool>/SKILL.md` — tools Remi can operate (e.g. `herdr`), plain markdown readable by any coding agent.
 - `.claude/skills/<tool>` — symlinks into `skills/`, giving Claude Code its native auto-discovery and on-demand loading on top of the same files.
 
 ## Projects
