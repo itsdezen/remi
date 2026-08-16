@@ -1,6 +1,6 @@
 ---
 name: herdr
-description: Use when checking on, launching, prompting, or shutting down AI coding agents running in terminal panes/workspaces via the herdr multiplexer, or when the user mentions "herdr", other running agents, or wants a dedicated pane/workspace for a project. Not for editing code — only for orchestrating agent panes.
+description: Use when checking on, launching, prompting, or shutting down AI coding agents running in terminal panes/workspaces via the herdr multiplexer, or when the user mentions "herdr", other running agents, or wants a dedicated pane/workspace for a project. Scoped to orchestrating agent panes — code edits stay with the main agent.
 ---
 
 # herdr
@@ -15,8 +15,8 @@ Terminal workspace multiplexer for running and orchestrating multiple AI coding 
 ## Concepts
 - Hierarchy: **workspace** → **tab** → **pane** → **agent**. A pane is a terminal; an agent is a supported CLI detected running inside a pane.
 - Status rolls up: every pane/agent has `agent_status` (`idle | working | blocked | done | unknown`); tabs and workspaces report the same field as a rollup of everything inside them. Checking a workspace tells you if *anything* inside needs attention without opening a single pane.
-- Targets: `agent`/`pane` commands take a `<target>` — a pane_id or agent name from `list`/`get`. Never hardcode one; look it up first, IDs are per-session.
-- **Exclude the current session from status reports.** This very session (Remi) shows up in `herdr agent list`/`workspace list` as its own entry (matching `agent_session.value` to this session's id, kind `claude`, cwd of this repo). Filter it out before reporting to the user — don't describe or analyze it as if it were a separate managed agent. If it's the only entry, report "no other agents running."
+- Targets: `agent`/`pane` commands take a `<target>` — a pane_id or agent name from `list`/`get`. Always look it up first; IDs are per-session.
+- **Exclude the current session from status reports.** This very session (Remi) shows up in `herdr agent list`/`workspace list` as its own entry (matching `agent_session.value` to this session's id, kind `claude`, cwd of this repo). Filter it out before reporting to the user, treating it as outside the report entirely. If it's the only entry, report "no other agents running."
 
 ## Beyond panes — the rest of herdr's model
 Panel splitting covers routine staff spawning, but herdr models more than that. Reach for these only when the specific problem actually calls for them — the split+swap panel rule in identity.md stays the default for ordinary staff work.
@@ -35,7 +35,7 @@ Go narrower only as needed, and stop as soon as you have the answer:
 3. **Inspect**: `herdr agent get <target>` for metadata, or `herdr agent read <target> --lines 40` for recent output — read only the one agent that needs attention, not everyone's.
 4. **Act**: `herdr agent prompt <target> "<instruction>" --wait --until done` to send input and block until it settles, or `herdr agent wait <target> --until blocked done` to poll without sending anything.
 
-Never run `herdr api snapshot` as a first move — it dumps the entire session state (every workspace/tab/pane/agent) in one shot and defeats the point of going step by step. Only reach for it if you genuinely need the full picture at once.
+Reach for `herdr api snapshot` only if you genuinely need the full picture at once — it dumps the entire session state (every workspace/tab/pane/agent) in one shot, so the survey→narrow→inspect→act sequence above is the default.
 
 ## Choosing a model when spawning an agent
 Both major providers organize models into the same three tiers — match the tier to the task, not the provider brand. Sources: Anthropic's model catalog (`shared/models.md` in the `claude-api` skill) and OpenAI's Codex docs (developers.openai.com/codex/models, developers.openai.com/api/docs/guides/model-selection).
@@ -46,7 +46,7 @@ Both major providers organize models into the same three tiers — match the tie
 | Balanced everyday | Sonnet 5 (`claude-sonnet-5`) — near-Opus quality on coding/agentic at Sonnet cost | GPT-5.6 Terra — "the everyday workhorse" | Interactive quick edits, day-to-day coding, most tasks — the default choice |
 | Fast / cheap | Haiku 4.5 (`claude-haiku-4-5`) | GPT-5.6 Luna — "strong capability at the lowest cost" | High-volume simple tasks: classification, extraction, quick lookups, structured repeatable work |
 
-- **Model catalogs move fast** (new generations every few months) — don't hardcode a model name from memory. For Claude, check `shared/models.md` in the `claude-api` skill. For Codex, run `codex debug models` or check developers.openai.com/codex/models.
+- **Model catalogs move fast** (new generations every few months) — always check the current catalog: `shared/models.md` in the `claude-api` skill for Claude, `codex debug models` or developers.openai.com/codex/models for Codex.
 - **Passing the model through `herdr agent start`**: the trailing `-- [AGENT_ARG]...` forwards args to the underlying CLI, e.g. `herdr agent start work1 --kind claude --pane p1 -- --model claude-opus-4-8` or `... --kind codex --pane p1 -- --model gpt-5.6-sol`. Both CLIs also support switching mid-session (`/model`) once attached.
 - Default to the balanced tier unless the task clearly calls for more depth or is simple/high-volume — same "start simple, escalate only when needed" principle as everywhere else in this guide.
 
@@ -68,7 +68,7 @@ Control an agent:
 - `herdr agent wait <target> [--until STATUS...] [--timeout MS]`
 - `herdr agent send-keys <target> <keys...>` — raw keypresses, for things `prompt` can't express (e.g. approving a y/n)
 - `herdr agent focus <target>` / `herdr agent rename <target> <name>`
-- `herdr agent attach <target> [--takeover]` — for telling the user how to take the keyboard directly, not something Remi calls on herself
+- `herdr agent attach <target> [--takeover]` — for telling the user how to take the keyboard directly themselves
 - `herdr pane report-metadata <pane_id> --source remi [--display-agent TEXT] [--token NAME=VALUE] [--clear-display-agent] [--clear-token NAME]` — optional stable status label for the sidebar
 
 Teardown:
@@ -76,5 +76,5 @@ Teardown:
 - Closing kills the process inside. Confirm before closing a pane/tab/workspace whose agent is mid-turn (`agent_status: working`).
 
 ## Notes
-- `list`/`get` commands print human-readable text by default — there's no blanket `--json` flag on `list`. `herdr api snapshot --output PATH` is the one place to get the full JSON tree if truly needed.
+- `list`/`get` commands print human-readable text by default — `herdr api snapshot --output PATH` is the one place to get the full JSON tree if truly needed.
 - Supported `--kind` values for `agent start` (v0.7.5): pi, claude, codex, gemini, cursor, devin, agy, cline, omp, mastracode, opencode, copilot, kimi, kiro, droid, amp, grok, hermes, kilo, qodercli, maki.

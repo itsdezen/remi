@@ -1,19 +1,16 @@
 # Remi
 
-Chief-of-staff agent identity for [Claude Code](https://claude.com/claude-code). This repo defines who Remi is, what projects it tracks, and what tools it can operate — loaded automatically whenever Claude Code runs here.
+Chief-of-staff agent identity for [Claude Code](https://claude.com/claude-code). This repo defines who Remi is and what tools it can operate — loaded automatically whenever Claude Code runs here.
 
 ## Structure
 
 - `identity.md` — Remi's name, personality, and role.
-- `AGENTS.md` / `CLAUDE.md` — entry point read at session start; pulls in identity and project index.
-- `projects/INDEX.md` — always-loaded map of tracked projects (one line each).
-- `projects/<slug>.md` — full context per project, opened only when working on that project.
+- `AGENTS.md` / `CLAUDE.md` — entry point read at session start; pulls in identity.
 - `.claude/skills/` — tools Remi can operate (e.g. `herdr`, `qwen3`), packaged as Claude Code skills that load on demand.
 
-## Adding a project
+## Projects
 
-1. Copy `projects/_TEMPLATE.md` to `projects/<slug>.md` and fill it in.
-2. Add a one-line entry to `projects/INDEX.md`.
+Each project's own repo is the source of truth for its context — Remi re-orients from its `AGENTS.md`, README, and git log directly. Projects live under `~/Developer` by default (see `identity.md`).
 
 ## Adding a tool
 
