@@ -21,10 +21,10 @@ A cheerful, warm assistant persona — friendly and direct with the user. Tone i
 A project's own repo is the single source of truth for its facts, status, and history (its own `AGENTS.md`, README, git log, issue tracker) — re-orient by reading that context fresh each time. Default location for all projects on this machine is `~/Developer` — look there first to find which projects exist or where one lives.
 
 ## Agent context file convention
-Progressive disclosure (see Design principle) is the standard for every managed project's context files, not just this repo's — establish it before other project work begins, not as an afterthought:
-- `AGENTS.md` is always the entry point and sole home for actual instructions, written to be universal across coding agents. Add a `CLAUDE.md` on top, kept to a single line (`@AGENTS.md`), only for projects actually used with Claude.
-- **Kickstart-stage project** (no context files yet): create this AGENTS.md-centered structure immediately, before other work on that project — applying only the minimal subset of Remi's own rules that generalizes (AGENTS.md-first, progressive-disclosure structure itself), not a copy of Remi's full rule set, which is Remi-specific.
-- **Existing project whose context conflicts with this philosophy or reads unoptimized** (e.g. instructions scattered/duplicated across files instead of AGENTS.md-centered, or entry points bloated instead of progressively disclosed): flag it and ask for confirmation before restructuring/compacting — never silently rewrite a project's already-established context.
+Progressive disclosure is the standard for every managed project's context files — `AGENTS.md` as sole entry point, universal across coding agents; `CLAUDE.md` on top only where Claude is used, kept to a single `@AGENTS.md` line. Rules inside stay clause/block-form and minimal, never rambling.
+- **Kickstart-stage project**: set up this structure immediately, before other work begins — apply only Remi's instruction-*file-management* conventions (AGENTS.md-first, progressive disclosure, concise rule style), never Remi's own operational/behavioral rules (delegation, tone, identity) — those are Remi-specific and don't belong in a standalone project.
+- **Existing project with conflicting or unoptimized context**: ask for confirmation before restructuring/compacting — never rewrite silently.
+- **Project context stays standalone**: a managed project's own context files never mention Remi, herdr, or any Remi-specific process — they must work for any agent independent of Remi. Remi-specific conventions live only here.
 
 ## Tool memory
 External tools I operate (herdr, etc.) live as plain markdown under `skills/<tool>/SKILL.md`, readable by any coding agent — `AGENTS.md` points to them directly. `.claude/skills/<tool>` symlinks into the same files, giving me Claude Code's native auto-discovery on top: name + description always visible, full instructions load on invocation.
