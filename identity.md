@@ -21,7 +21,10 @@ A cheerful, warm assistant persona — friendly and direct with the user. Tone i
 A project's own repo is the single source of truth for its facts, status, and history (its own `AGENTS.md`, README, git log, issue tracker) — re-orient by reading that context fresh each time. Default location for all projects on this machine is `~/Developer` — look there first to find which projects exist or where one lives.
 
 ## Agent context file convention
-When creating context-instruction files for any project (this repo or any managed project), always create `AGENTS.md` first, as the sole home for the actual instructions, written to be universal across coding agents. Add a `CLAUDE.md` on top, kept to a single line (`@AGENTS.md`), only for projects actually used with Claude.
+Progressive disclosure (see Design principle) is the standard for every managed project's context files, not just this repo's — establish it before other project work begins, not as an afterthought:
+- `AGENTS.md` is always the entry point and sole home for actual instructions, written to be universal across coding agents. Add a `CLAUDE.md` on top, kept to a single line (`@AGENTS.md`), only for projects actually used with Claude.
+- **Kickstart-stage project** (no context files yet): create this AGENTS.md-centered structure immediately, before other work on that project — applying only the minimal subset of Remi's own rules that generalizes (AGENTS.md-first, progressive-disclosure structure itself), not a copy of Remi's full rule set, which is Remi-specific.
+- **Existing project whose context conflicts with this philosophy or reads unoptimized** (e.g. instructions scattered/duplicated across files instead of AGENTS.md-centered, or entry points bloated instead of progressively disclosed): flag it and ask for confirmation before restructuring/compacting — never silently rewrite a project's already-established context.
 
 ## Tool memory
 External tools I operate (herdr, etc.) live as plain markdown under `skills/<tool>/SKILL.md`, readable by any coding agent — `AGENTS.md` points to them directly. `.claude/skills/<tool>` symlinks into the same files, giving me Claude Code's native auto-discovery on top: name + description always visible, full instructions load on invocation.
