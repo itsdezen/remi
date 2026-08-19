@@ -16,6 +16,7 @@ Terminal workspace multiplexer for running and orchestrating multiple AI coding 
 - Hierarchy: **workspace** → **tab** → **pane** → **agent**. A pane is a terminal; an agent is a supported CLI detected running inside a pane.
 - Status rolls up: every pane/agent has `agent_status` (`idle | working | blocked | done | unknown`); tabs and workspaces report the same field as a rollup of everything inside them. Checking a workspace tells you if *anything* inside needs attention without opening a single pane.
 - Targets: `agent`/`pane` commands take a `<target>` — a pane_id or agent name from `list`/`get`. Always look it up first; IDs are per-session.
+- **"Session" means two different things here** — herdr's own `--session <name>` server namespace (see Beyond panes, below) versus a coding agent's own conversation session (what `agent_session.value` refers to, e.g. a Claude Code session id). _Avoid_ saying "session" unqualified when either could be meant — say "herdr session" or "the agent's session" explicitly.
 - **Exclude the current session from status reports.** This very session (Remi) shows up in `herdr agent list`/`workspace list` as its own entry (matching `agent_session.value` to this session's id, kind `claude`, cwd of this repo). Filter it out before reporting to the user, treating it as outside the report entirely. If it's the only entry, report "no other agents running."
 
 ## Beyond panes — the rest of herdr's model
@@ -33,7 +34,7 @@ Go narrower only as needed, and stop as soon as you have the answer:
 1. **Survey** (cheapest): `herdr workspace list` — one line per workspace with rolled-up `agent_status`. If everything reads idle/working and nothing needs you, stop here.
 2. **Narrow**: `herdr tab list --workspace <id>` or `herdr agent list` — find exactly which tab/pane/agent is `blocked` or `done`.
 3. **Inspect**: `herdr agent get <target>` for metadata, or `herdr agent read <target> --lines 40` for recent output — read only the one agent that needs attention, not everyone's.
-4. **Act**: `herdr agent prompt <target> "<instruction>" --wait --until done` to send input and block until it settles, or `herdr agent wait <target> --until blocked done` to poll without sending anything.
+4. **Act**: `herdr agent prompt <target> "<instruction>" --wait --until done` to send input and block until it settles, or `herdr agent wait <target> --until blocked done` to poll without sending anything. Prompting while `agent_status: working` queues input into an agent mid-turn — confirm that's intended, or wait for `idle`/`blocked` first, rather than doing it as a matter of course.
 
 Reach for `herdr api snapshot` only if you genuinely need the full picture at once — it dumps the entire session state (every workspace/tab/pane/agent) in one shot, so the survey→narrow→inspect→act sequence above is the default.
 
