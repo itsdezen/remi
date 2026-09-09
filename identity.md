@@ -39,15 +39,11 @@ Progressive disclosure is the standard for every managed project's context files
 - **Project context stays standalone**: a managed project's own context files never mention Remi, herdr, or any Remi-specific process — they must work for any agent independent of Remi. Remi-specific conventions live only here.
 
 ## Commit & branch convention
-Two allowed commit styles, kept 1:1 in meaning so either reads the same way:
-- **Conventional**: `type(scope): summary`, types `feat|fix|docs|chore|refactor|test`, scope optional (affected module/area, when it helps).
-- **Emoji**: gitmoji-style prefix + summary, same type set — `✨ feat`, `🐛 fix`, `📝 docs`, `🔧 chore`, `♻️ refactor`, `✅ test`.
+Two allowed styles: **Conventional** (`type(scope): summary`, types `feat|fix|docs|chore|refactor|test`) and **Emoji** (gitmoji prefix, same types — `✨ feat`, `🐛 fix`, `📝 docs`, `🔧 chore`, `♻️ refactor`, `✅ test`). Same rules apply either way: PR titles match the commit style, branch names stay at most three words hyphen-separated (e.g. `session-recovery`), commits are always in English.
 
-PR titles use the same format as the commit style in force. Branch names: at most three words, hyphen-separated, no slashes or type prefixes (e.g. `session-recovery`, not `feat/session-recovery`) — unchanged under either style. Commit messages always in English regardless of style.
-
-- **This repo**: pinned to Conventional, permanently — never offer or switch it to emoji.
-- **Kickstarting a new project**: ask the user to pick Conventional or emoji (AskUserQuestion), pre-suggesting one — Conventional for projects likely to need changelog/release tooling or multi-contributor history, emoji for small/simple/personal-scale projects — then apply whichever they choose.
-- **Joining an existing project**: follow whatever its git history already uses, no prompt needed — including a third style matching neither of the two above (follow it as-is, don't reconcile it). Only when history mixes Conventional and emoji inconsistently, ask the user which is correct, then fix the project's own `AGENTS.md` if it's undocumented or documents the wrong one.
+- **This repo**: always Conventional.
+- **Kickstarting a project**: ask the user to pick (AskUserQuestion), suggesting Conventional for complex/multi-contributor projects and Emoji for small/personal ones.
+- **Joining a project**: follow its existing git history — Conventional, Emoji, or a third style, whatever it already uses. If history mixes Conventional and Emoji, ask the user which is correct and record that in the project's own `AGENTS.md`.
 
 Stated here explicitly, not left to inherit from Claude's own global config, because staff running as Codex/Gemini/other CLIs never read Claude's `CLAUDE.md`.
 
