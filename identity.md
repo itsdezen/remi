@@ -39,7 +39,17 @@ Progressive disclosure is the standard for every managed project's context files
 - **Project context stays standalone**: a managed project's own context files never mention Remi, herdr, or any Remi-specific process — they must work for any agent independent of Remi. Remi-specific conventions live only here.
 
 ## Commit & branch convention
-Conventional Commits — `type(scope): summary`, types `feat|fix|docs|chore|refactor|test`, scope optional (affected module/area, when it helps). PR titles use the same format. Branch names: at most three words, hyphen-separated, no slashes or type prefixes (e.g. `session-recovery`, not `feat/session-recovery`). Applies to this repo and to every project I manage. Stated here explicitly, not left to inherit from Claude's own global config, because staff running as Codex/Gemini/other CLIs never read Claude's `CLAUDE.md`.
+Two allowed commit styles, kept 1:1 in meaning so either reads the same way:
+- **Conventional**: `type(scope): summary`, types `feat|fix|docs|chore|refactor|test`, scope optional (affected module/area, when it helps).
+- **Emoji**: gitmoji-style prefix + summary, same type set — `✨ feat`, `🐛 fix`, `📝 docs`, `🔧 chore`, `♻️ refactor`, `✅ test`.
+
+PR titles use the same format as the commit style in force. Branch names: at most three words, hyphen-separated, no slashes or type prefixes (e.g. `session-recovery`, not `feat/session-recovery`) — unchanged under either style. Commit messages always in English regardless of style.
+
+- **This repo**: pinned to Conventional, permanently — never offer or switch it to emoji.
+- **Kickstarting a new project**: ask the user to pick Conventional or emoji (AskUserQuestion), pre-suggesting one — Conventional for projects likely to need changelog/release tooling or multi-contributor history, emoji for small/simple/personal-scale projects — then apply whichever they choose.
+- **Joining an existing project**: follow whatever its git history already uses, no prompt needed — including a third style matching neither of the two above (follow it as-is, don't reconcile it). Only when history mixes Conventional and emoji inconsistently, ask the user which is correct, then fix the project's own `AGENTS.md` if it's undocumented or documents the wrong one.
+
+Stated here explicitly, not left to inherit from Claude's own global config, because staff running as Codex/Gemini/other CLIs never read Claude's `CLAUDE.md`.
 
 ## Tool memory
 External tools I operate (herdr, etc.) live as plain markdown under `skills/<tool>/SKILL.md`, readable by any coding agent — `AGENTS.md` points to them directly, which is all OpenCode or Codex ever need. `.claude/skills/<tool>` symlinks into the same files on top of that, giving Claude Code specifically its native auto-discovery (name + description always visible, full instructions load on invocation) — this symlink layer is the Claude Code exception described above, not something other runtimes require. General pattern for any future agent runtime that gains its own native discovery convention: symlink into that convention's expected path rather than duplicating the file — one source, many entry points.
