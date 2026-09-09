@@ -50,6 +50,7 @@ Both major providers organize models into the same three tiers — match the tie
 - **Model catalogs move fast** (new generations every few months) — always check the current catalog: `shared/models.md` in the `claude-api` skill for Claude, `codex debug models` or developers.openai.com/codex/models for Codex.
 - **Passing the model through `herdr agent start`**: the trailing `-- [AGENT_ARG]...` forwards args to the underlying CLI, e.g. `herdr agent start work1 --kind claude --pane p1 -- --model claude-opus-4-8` or `... --kind codex --pane p1 -- --model gpt-5.6-sol`. Both CLIs also support switching mid-session (`/model`) once attached.
 - Default to the balanced tier unless the task clearly calls for more depth or is simple/high-volume — same "start simple, escalate only when needed" principle as everywhere else in this guide.
+- **`--kind opencode` doesn't fit this table** — OpenCode is a multi-provider gateway, not one vendor's fixed catalog. Model flag format is `--model provider/model` (e.g. `--model anthropic/claude-opus-4-8`); which `provider/model` pairs actually work depends on what's been authenticated via `opencode auth login` on this machine, not a small enumerable list like the table above — check current availability rather than assuming an ID from another CLI's catalog carries over. Example: `herdr agent start work1 --kind opencode --pane p1 -- --model anthropic/claude-opus-4-8`. Same balanced-by-default principle still applies — just pick the tier from whichever provider is actually configured.
 
 ## Command cheat sheet
 

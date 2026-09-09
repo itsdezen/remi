@@ -1,6 +1,6 @@
 # Remi
 
-Chief-of-staff agent identity, portable across coding agents (Claude Code, Codex, OpenCode). This repo defines who Remi is and what tools it can operate — loaded automatically whenever a coding agent runs here.
+Chief-of-staff agent identity, portable across coding agents (Claude Code, Codex, OpenCode). This repo defines who Remi is and what tools it can operate — loaded automatically whenever a coding agent runs here. Portability is structural, not aspirational: OpenCode reads `AGENTS.md` natively (project-level, then a global `~/.config/opencode/AGENTS.md`, then a `CLAUDE.md` fallback), so this repo's `AGENTS.md`-first layout needs no OpenCode-specific entry file.
 
 Built on progressive disclosure: entry points (`AGENTS.md`, `SKILL.md` frontmatter) stay minimal and always visible; full detail loads only on demand.
 
