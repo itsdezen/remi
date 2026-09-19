@@ -9,7 +9,6 @@ Built on progressive disclosure: entry points (`AGENTS.md`, `SKILL.md` frontmatt
 - `identity.md` — Remi's name, personality, and role.
 - `AGENTS.md` — entry point read at session start; pulls in identity.
 - `.agents/skills/<tool>/SKILL.md` — tools Remi can operate (e.g. `herdr`), plain markdown readable by any coding agent.
-- `.claude/skills/<tool>` — symlinks into `.agents/skills/`, giving Claude Code its native auto-discovery and on-demand loading on top of the same files.
 
 ## Projects
 
@@ -18,5 +17,4 @@ Each project's own repo is the source of truth for its context — Remi re-orien
 ## Adding a tool
 
 1. Write `.agents/skills/<tool>/SKILL.md` (frontmatter with `name`/`description`, then the instructions).
-2. Symlink it into Claude's discovery path: `ln -s ../../.agents/skills/<tool> .claude/skills/<tool>`.
-3. Add a line for it to the Tools list in `AGENTS.md` so non-Claude agents can find it too.
+2. Add a line for it to the Tools list in `AGENTS.md` so any agent can find it.
