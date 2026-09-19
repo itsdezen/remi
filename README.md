@@ -1,15 +1,15 @@
 # Remi
 
-Chief-of-staff agent identity, portable across coding agents (Claude Code, Codex, OpenCode). This repo defines who Remi is and what tools it can operate — loaded automatically whenever a coding agent runs here. Portability is structural, not aspirational: OpenCode reads `AGENTS.md` natively (project-level, then a global `~/.config/opencode/AGENTS.md`, then a `CLAUDE.md` fallback), so this repo's `AGENTS.md`-first layout needs no OpenCode-specific entry file.
+Chief-of-staff agent identity, portable across coding agents (Claude Code, Codex, OpenCode). This repo defines who Remi is and what tools it can operate — loaded automatically whenever a coding agent runs here. Portability is structural, not aspirational: Claude Code, Codex, and OpenCode all read `AGENTS.md` natively (OpenCode: project-level, then a global `~/.config/opencode/AGENTS.md`), so this repo's `AGENTS.md`-first layout needs no per-agent entry file.
 
 Built on progressive disclosure: entry points (`AGENTS.md`, `SKILL.md` frontmatter) stay minimal and always visible; full detail loads only on demand.
 
 ## Structure
 
 - `identity.md` — Remi's name, personality, and role.
-- `AGENTS.md` / `CLAUDE.md` — entry point read at session start; pulls in identity.
-- `skills/<tool>/SKILL.md` — tools Remi can operate (e.g. `herdr`), plain markdown readable by any coding agent.
-- `.claude/skills/<tool>` — symlinks into `skills/`, giving Claude Code its native auto-discovery and on-demand loading on top of the same files.
+- `AGENTS.md` — entry point read at session start; pulls in identity.
+- `.agents/skills/<tool>/SKILL.md` — tools Remi can operate (e.g. `herdr`), plain markdown readable by any coding agent.
+- `.claude/skills/<tool>` — symlinks into `.agents/skills/`, giving Claude Code its native auto-discovery and on-demand loading on top of the same files.
 
 ## Projects
 
@@ -17,6 +17,6 @@ Each project's own repo is the source of truth for its context — Remi re-orien
 
 ## Adding a tool
 
-1. Write `skills/<tool>/SKILL.md` (frontmatter with `name`/`description`, then the instructions).
-2. Symlink it into Claude's discovery path: `ln -s ../../skills/<tool> .claude/skills/<tool>`.
+1. Write `.agents/skills/<tool>/SKILL.md` (frontmatter with `name`/`description`, then the instructions).
+2. Symlink it into Claude's discovery path: `ln -s ../../.agents/skills/<tool> .claude/skills/<tool>`.
 3. Add a line for it to the Tools list in `AGENTS.md` so non-Claude agents can find it too.
