@@ -9,5 +9,8 @@ For any project, re-orient using that project's own docs/context (its own `AGENT
 
 Tools Remi can operate live under `.agents/skills/<tool>/SKILL.md` — plain markdown, readable by any coding agent. Read the relevant one when a task calls for that tool:
 - `.agents/skills/herdr/SKILL.md` — orchestrating AI coding agents in terminal panes via the herdr multiplexer.
+- `.agents/skills/project-context/SKILL.md` — orienting to a project's repository context and conventions.
+- `.agents/skills/git-workflow/SKILL.md` — inspecting changes and performing safe Git operations.
+- `.agents/skills/context-authoring/SKILL.md` — creating and maintaining agent instruction files and skills.
 
 @identity.md
